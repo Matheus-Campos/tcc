@@ -4,7 +4,3 @@ include
 lib
 lib64
 pyvenv.cfg
-
-# input files
-data/*
-!data/.gitkeep
