@@ -1,0 +1,10 @@
+# python virtual env
+bin
+include
+lib
+lib64
+pyvenv.cfg
+
+# input files
+data/*
+!data/.gitkeep
