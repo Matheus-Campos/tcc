@@ -2,13 +2,14 @@ import pandas as pd
 from dotenv import load_dotenv
 import json
 import re
-from datetime import datetime as dt
+from datetime import datetime
 import numpy as np
 import os
 
 load_dotenv(".env")
 
-from geocoding import GeocodingService
+from google import GeocodingClient
+from stormglass import StormglassClient
 
 
 class TCC:
@@ -17,7 +18,10 @@ class TCC:
 
     def __init__(self):
         geocoding_apikey = os.getenv("GEOCODING_API_KEY")
-        self.__geocoding_service = GeocodingService(geocoding_apikey)
+        self.__geocoding_client = GeocodingClient(geocoding_apikey)
+
+        stormglass_apikey = os.getenv("STORMGLASS_API_KEY")
+        self.__stormglass_client = StormglassClient(stormglass_apikey)
 
     def main(self):
         df = (
@@ -56,22 +60,32 @@ class TCC:
         if not date_result or not time_result:
             return
 
+        date = None
         try:
-            datetime = dt.strptime(
+            date = datetime.strptime(
                 f"{date_result[0]} {time_result[0]}", "%Y.%m.%d %Hh%M"
             )
         except ValueError as e:
-            return print("parse error:", e)
+            print("parse error:", e)
+            return
 
-        coordinates = self.__geocoding_service.geocode(country, area, location)
+        coordinates = self.__geocoding_client.geocode(country, area, location)
+        weather = self.__stormglass_client.get_weather(
+            date, coordinates["latitude"], coordinates["longitude"]
+        )
+        tide = self.__stormglass_client.get_tide_extremes(
+            date, coordinates["latitude"], coordinates["longitude"]
+        )
 
         return {
             "case_number": case_number,
             "country": country,
             "area": area,
             "location": location,
-            "datetime": datetime.isoformat(timespec="milliseconds"),
+            "datetime": date.isoformat(timespec="milliseconds"),
             "coordinates": coordinates,
+            "tide": tide,
+            "weather": weather,
         }
 
 
