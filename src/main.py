@@ -10,6 +10,7 @@ load_dotenv(".env")
 
 from google import GeocodingClient
 from stormglass import StormglassClient
+from openmeteo import OpenMeteoClient
 
 
 class TCC:
@@ -22,6 +23,8 @@ class TCC:
 
         stormglass_apikey = os.getenv("STORMGLASS_API_KEY")
         self.__stormglass_client = StormglassClient(stormglass_apikey)
+
+        self.__openmeteo_client = OpenMeteoClient()
 
     def main(self):
         df = pd.read_csv("./data/GSAF5.xls - Sheet1-GSAF.csv").replace({np.nan: None})
@@ -66,7 +69,7 @@ class TCC:
             return
 
         coordinates = self.__geocoding_client.geocode(country, area, location)
-        weather = self.__stormglass_client.get_weather(
+        weather = self.__openmeteo_client.get_hourly_weather(
             date, coordinates["latitude"], coordinates["longitude"]
         )
         tide = self.__stormglass_client.get_tide_extremes(

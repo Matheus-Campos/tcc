@@ -42,6 +42,10 @@ class StormglassClient:
         return body["data"]
 
     def get_weather(self, date: datetime, latitude: float, longitude: float):
+        """
+        Problem: Stormglass only has historical weather data from 2017, thus,
+        capping the data sample heavily. Use OpenMeteo instead.
+        """
         start_of_day = date.replace(hour=0, minute=0, second=0, microsecond=0)
         end_of_day = date + timedelta(hours=23, minutes=59, seconds=59)
 
