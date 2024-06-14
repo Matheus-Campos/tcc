@@ -24,11 +24,7 @@ class TCC:
         self.__stormglass_client = StormglassClient(stormglass_apikey)
 
     def main(self):
-        df = (
-            pd.read_csv("./data/GSAF5.xls - Sheet1-GSAF.csv")
-            .replace({np.nan: None})
-            .head()
-        )
+        df = pd.read_csv("./data/GSAF5.xls - Sheet1-GSAF.csv").replace({np.nan: None})
 
         processed_data = [
             self.__process_row(case_number, country, area, location, time)

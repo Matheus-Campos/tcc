@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 class StormglassClient:
     __service_url = os.getenv("STORMGLASS_URL")
-    __weather_params = [
+    __default_weather_params = [
         "airTemperature",
         "precipitation",
         "seaLevel",
@@ -41,9 +41,7 @@ class StormglassClient:
         body = response.json()
         return body["data"]
 
-    def get_weather(
-        self, date: datetime, latitude: float, longitude: float, params: list[str]
-    ):
+    def get_weather(self, date: datetime, latitude: float, longitude: float):
         start_of_day = date.replace(hour=0, minute=0, second=0, microsecond=0)
         end_of_day = date + timedelta(hours=23, minutes=59, seconds=59)
 
@@ -52,7 +50,7 @@ class StormglassClient:
             params={
                 "lat": latitude,
                 "lng": longitude,
-                "params": ",".join(self.__weather_params),
+                "params": ",".join(self.__default_weather_params),
                 "start": start_of_day.timestamp(),
                 "end": end_of_day.timestamp(),
             },
