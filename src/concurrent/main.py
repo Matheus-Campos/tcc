@@ -8,6 +8,7 @@ import re
 from datetime import datetime
 import os
 import json
+from time import sleep
 
 thread_local = threading.local()
 
@@ -24,6 +25,8 @@ default_hourly_params = [
     "precipitation",
     "rain",
 ]
+
+num_threads = 16
 
 
 def get_session() -> requests.Session:
@@ -112,6 +115,8 @@ def process_row(case: tuple[str, str, str, str, str]):
         print("Case number %s is too old for OpenMeteo." % case_number)
         return
 
+    sleep(1.6)  # OpenMeteo supports only 10 req/s in free tier
+
     print("Fetching coordinates for case number %s." % case_number)
     coordinates = get_lat_long(country, area, location)
     print(
@@ -145,7 +150,7 @@ def main():
         df["Case Number"], df["Country"], df["Area"], df["Location"], df["Time"]
     )
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=16) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
         processed_data = list(executor.map(process_row, cases))
 
     filtered_data = [data for data in processed_data if data is not None]
