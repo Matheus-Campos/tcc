@@ -1,10 +1,9 @@
-import requests
 import os
 from datetime import datetime
+from http_client import HttpClient
 
 
 class OpenMeteoClient:
-    __service_url = os.getenv("OPEN_METEO_URL")
     __default_hourly_params = [
         "temperature_2m",
         "apparent_temperature",
@@ -12,9 +11,13 @@ class OpenMeteoClient:
         "rain",
     ]
 
+    def __init__(self, http_client: HttpClient, url: str):
+        self.http_client = http_client.get_client()
+        self.__url = url
+
     def get_hourly_weather(self, date: datetime, latitude: float, longitude: float):
-        response = requests.get(
-            self.__service_url,
+        response = self.http_client.get(
+            self.__url,
             params={
                 "latitude": latitude,
                 "longitude": longitude,

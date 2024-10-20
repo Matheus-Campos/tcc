@@ -1,4 +1,5 @@
 # python virtual env
+.venv
 bin
 include
 lib
