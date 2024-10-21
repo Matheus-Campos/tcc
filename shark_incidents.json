@@ -10996,49 +10996,49 @@
   "location": "30 nm off Port Elizabeth",
   "datetime": "2019-03-05T16:00:00.000",
   "coordinates": {
-   "latitude": -33.9758229,
-   "longitude": 25.6123664
+   "latitude": -33.952712,
+   "longitude": 25.5773314
   },
   "weather": [
    {
     "time": "2019-03-05T00:00",
-    "temperature_2m": 18.8,
-    "precipitation": 0.3,
-    "rain": 0.3
+    "temperature_2m": 18.4,
+    "precipitation": 0.2,
+    "rain": 0.2
    },
    {
     "time": "2019-03-05T01:00",
-    "temperature_2m": 18.4,
-    "precipitation": 0.0,
-    "rain": 0.0
-   },
-   {
-    "time": "2019-03-05T02:00",
-    "temperature_2m": 18.1,
-    "precipitation": 0.0,
-    "rain": 0.0
-   },
-   {
-    "time": "2019-03-05T03:00",
     "temperature_2m": 17.8,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
+    "time": "2019-03-05T02:00",
+    "temperature_2m": 17.5,
+    "precipitation": 0.0,
+    "rain": 0.0
+   },
+   {
+    "time": "2019-03-05T03:00",
+    "temperature_2m": 17.2,
+    "precipitation": 0.0,
+    "rain": 0.0
+   },
+   {
     "time": "2019-03-05T04:00",
-    "temperature_2m": 17.9,
+    "temperature_2m": 17.1,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T05:00",
-    "temperature_2m": 18.5,
+    "temperature_2m": 17.9,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T06:00",
-    "temperature_2m": 19.9,
+    "temperature_2m": 19.7,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -11050,97 +11050,97 @@
    },
    {
     "time": "2019-03-05T08:00",
-    "temperature_2m": 22.2,
+    "temperature_2m": 22.4,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T09:00",
-    "temperature_2m": 22.5,
-    "precipitation": 0.0,
-    "rain": 0.0
-   },
-   {
-    "time": "2019-03-05T10:00",
-    "temperature_2m": 22.6,
-    "precipitation": 0.0,
-    "rain": 0.0
-   },
-   {
-    "time": "2019-03-05T11:00",
     "temperature_2m": 23.1,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
+    "time": "2019-03-05T10:00",
+    "temperature_2m": 23.3,
+    "precipitation": 0.0,
+    "rain": 0.0
+   },
+   {
+    "time": "2019-03-05T11:00",
+    "temperature_2m": 23.4,
+    "precipitation": 0.0,
+    "rain": 0.0
+   },
+   {
     "time": "2019-03-05T12:00",
-    "temperature_2m": 22.7,
+    "temperature_2m": 23.2,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T13:00",
-    "temperature_2m": 22.7,
+    "temperature_2m": 22.9,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T14:00",
-    "temperature_2m": 22.6,
+    "temperature_2m": 22.9,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T15:00",
-    "temperature_2m": 22.2,
+    "temperature_2m": 22.4,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T16:00",
-    "temperature_2m": 21.3,
+    "temperature_2m": 21.4,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T17:00",
-    "temperature_2m": 21.0,
+    "temperature_2m": 20.6,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T18:00",
-    "temperature_2m": 21.0,
+    "temperature_2m": 20.9,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T19:00",
-    "temperature_2m": 21.0,
+    "temperature_2m": 20.9,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T20:00",
-    "temperature_2m": 21.0,
+    "temperature_2m": 20.9,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T21:00",
-    "temperature_2m": 21.1,
+    "temperature_2m": 21.0,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T22:00",
-    "temperature_2m": 21.2,
+    "temperature_2m": 21.0,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2019-03-05T23:00",
-    "temperature_2m": 21.2,
+    "temperature_2m": 20.9,
     "precipitation": 0.0,
     "rain": 0.0
    }
@@ -189505,8 +189505,8 @@
   "location": "Atlantic Avenue, Palm Beach County",
   "datetime": "2002-05-22T06:47:00.000",
   "coordinates": {
-   "latitude": 26.7234944,
-   "longitude": -80.0383443
+   "latitude": 26.4616644,
+   "longitude": -80.0660067
   },
   "weather": [
    {
@@ -189535,49 +189535,49 @@
    },
    {
     "time": "2002-05-22T04:00",
-    "temperature_2m": 22.8,
+    "temperature_2m": 22.7,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2002-05-22T05:00",
-    "temperature_2m": 22.6,
-    "precipitation": 0.0,
-    "rain": 0.0
-   },
-   {
-    "time": "2002-05-22T06:00",
-    "temperature_2m": 22.4,
-    "precipitation": 0.0,
-    "rain": 0.0
-   },
-   {
-    "time": "2002-05-22T07:00",
     "temperature_2m": 22.5,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
+    "time": "2002-05-22T06:00",
+    "temperature_2m": 22.3,
+    "precipitation": 0.0,
+    "rain": 0.0
+   },
+   {
+    "time": "2002-05-22T07:00",
+    "temperature_2m": 22.4,
+    "precipitation": 0.0,
+    "rain": 0.0
+   },
+   {
     "time": "2002-05-22T08:00",
-    "temperature_2m": 22.6,
+    "temperature_2m": 22.4,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2002-05-22T09:00",
-    "temperature_2m": 22.6,
+    "temperature_2m": 22.5,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2002-05-22T10:00",
-    "temperature_2m": 22.7,
+    "temperature_2m": 22.6,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2002-05-22T11:00",
-    "temperature_2m": 22.7,
+    "temperature_2m": 22.6,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -189589,15 +189589,15 @@
    },
    {
     "time": "2002-05-22T13:00",
-    "temperature_2m": 23.6,
-    "precipitation": 0.1,
-    "rain": 0.1
+    "temperature_2m": 23.7,
+    "precipitation": 0.0,
+    "rain": 0.0
    },
    {
     "time": "2002-05-22T14:00",
     "temperature_2m": 24.1,
-    "precipitation": 0.1,
-    "rain": 0.1
+    "precipitation": 0.2,
+    "rain": 0.2
    },
    {
     "time": "2002-05-22T15:00",
@@ -189607,13 +189607,13 @@
    },
    {
     "time": "2002-05-22T16:00",
-    "temperature_2m": 24.7,
+    "temperature_2m": 24.8,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "2002-05-22T17:00",
-    "temperature_2m": 25.1,
+    "temperature_2m": 25.2,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -189631,15 +189631,15 @@
    },
    {
     "time": "2002-05-22T20:00",
-    "temperature_2m": 25.7,
-    "precipitation": 0.3,
-    "rain": 0.3
+    "temperature_2m": 25.6,
+    "precipitation": 0.5,
+    "rain": 0.5
    },
    {
     "time": "2002-05-22T21:00",
-    "temperature_2m": 25.4,
-    "precipitation": 0.1,
-    "rain": 0.1
+    "temperature_2m": 25.3,
+    "precipitation": 0.2,
+    "rain": 0.2
    },
    {
     "time": "2002-05-22T22:00",
@@ -189650,8 +189650,8 @@
    {
     "time": "2002-05-22T23:00",
     "temperature_2m": 24.7,
-    "precipitation": 0.0,
-    "rain": 0.0
+    "precipitation": 0.1,
+    "rain": 0.1
    }
   ]
  },
@@ -255602,8 +255602,8 @@
   "location": "Paradise Beach Park, Brevard County",
   "datetime": "1988-05-10T18:30:00.000",
   "coordinates": {
-   "latitude": 28.1219819,
-   "longitude": -80.5760479
+   "latitude": 28.1233738,
+   "longitude": -80.5752399
   },
   "weather": [
    {
@@ -255638,7 +255638,7 @@
    },
    {
     "time": "1988-05-10T05:00",
-    "temperature_2m": 19.0,
+    "temperature_2m": 19.1,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -255656,7 +255656,7 @@
    },
    {
     "time": "1988-05-10T08:00",
-    "temperature_2m": 17.1,
+    "temperature_2m": 17.2,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -255674,7 +255674,7 @@
    },
    {
     "time": "1988-05-10T11:00",
-    "temperature_2m": 18.1,
+    "temperature_2m": 18.2,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -255710,7 +255710,7 @@
    },
    {
     "time": "1988-05-10T17:00",
-    "temperature_2m": 27.2,
+    "temperature_2m": 27.3,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -255728,13 +255728,13 @@
    },
    {
     "time": "1988-05-10T20:00",
-    "temperature_2m": 27.2,
+    "temperature_2m": 27.3,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "1988-05-10T21:00",
-    "temperature_2m": 27.0,
+    "temperature_2m": 27.1,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -255916,13 +255916,13 @@
   "location": "Embouchure de l'étang du Gol",
   "datetime": "1988-04-28T17:30:00.000",
   "coordinates": {
-   "latitude": -21.2892184,
-   "longitude": 55.3884558
+   "latitude": -21.2919591,
+   "longitude": 55.3922202
   },
   "weather": [
    {
     "time": "1988-04-28T00:00",
-    "temperature_2m": 24.6,
+    "temperature_2m": 24.5,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -255934,25 +255934,25 @@
    },
    {
     "time": "1988-04-28T02:00",
-    "temperature_2m": 24.5,
+    "temperature_2m": 24.4,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "1988-04-28T03:00",
-    "temperature_2m": 24.5,
+    "temperature_2m": 24.4,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "1988-04-28T04:00",
-    "temperature_2m": 24.6,
+    "temperature_2m": 24.5,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "1988-04-28T05:00",
-    "temperature_2m": 26.2,
+    "temperature_2m": 26.1,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -255964,13 +255964,13 @@
    },
    {
     "time": "1988-04-28T07:00",
-    "temperature_2m": 28.2,
+    "temperature_2m": 28.1,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "1988-04-28T08:00",
-    "temperature_2m": 28.7,
+    "temperature_2m": 28.6,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -256000,25 +256000,25 @@
    },
    {
     "time": "1988-04-28T13:00",
-    "temperature_2m": 27.0,
+    "temperature_2m": 26.9,
     "precipitation": 0.1,
     "rain": 0.1
    },
    {
     "time": "1988-04-28T14:00",
-    "temperature_2m": 26.5,
+    "temperature_2m": 26.4,
     "precipitation": 0.1,
     "rain": 0.1
    },
    {
     "time": "1988-04-28T15:00",
-    "temperature_2m": 26.3,
+    "temperature_2m": 26.2,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "1988-04-28T16:00",
-    "temperature_2m": 26.1,
+    "temperature_2m": 26.0,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -256036,7 +256036,7 @@
    },
    {
     "time": "1988-04-28T19:00",
-    "temperature_2m": 25.0,
+    "temperature_2m": 24.9,
     "precipitation": 0.0,
     "rain": 0.0
    },
@@ -256054,13 +256054,13 @@
    },
    {
     "time": "1988-04-28T22:00",
-    "temperature_2m": 24.6,
+    "temperature_2m": 24.5,
     "precipitation": 0.0,
     "rain": 0.0
    },
    {
     "time": "1988-04-28T23:00",
-    "temperature_2m": 25.1,
+    "temperature_2m": 25.0,
     "precipitation": 0.0,
     "rain": 0.0
    }
@@ -317774,8 +317774,8 @@
   "location": "Lambert's Beach, Mackay",
   "datetime": "1961-12-28T16:15:00.000",
   "coordinates": {
-   "latitude": -21.1433971,
-   "longitude": 149.1868281
+   "latitude": -21.0743916,
+   "longitude": 149.2282795
   },
   "weather": [
    {
@@ -317931,8 +317931,8 @@
   "location": "Lambert’s Beach, Mackay",
   "datetime": "1961-12-28T16:15:00.000",
   "coordinates": {
-   "latitude": -21.1433971,
-   "longitude": 149.1868281
+   "latitude": -21.0743916,
+   "longitude": 149.2282795
   },
   "weather": [
    {
