@@ -10,15 +10,17 @@ import os
 import pytz
 import json
 import time
+import uuid
+import dateutil.parser as date_parser
 
 thread_local = threading.local()
+lock = threading.Lock()
 
-data_path = "./data/GSAF5.xls - Sheet1-GSAF.csv"
+incident_log_path = "./data/GSAF.xls"
 
 date_threshold = datetime(1970, 1, 1)
 
-date_regex = r"\d{4}\.\d{2}\.\d{2}"
-time_regex = r"\d{2}h\d{2}"
+time_regex = r"(\d{2}).*(\d{2})"
 
 default_hourly_params = [
     "temperature_2m",
@@ -28,15 +30,15 @@ default_hourly_params = [
 
 num_threads = 16
 
+gsaf_incident_log_url = "https://www.sharkattackfile.net/spreadsheets/GSAF5.xls"
 
 def get_session() -> requests.Session:
     if not hasattr(thread_local, "session"):
         thread_local.session = requests.sessions.Session()
     return thread_local.session
 
-
-def get_lat_long(country: str, area: str, location: str):
-    filtered_address = [x for x in [location, area, country] if x is not None]
+def get_lat_long(country: str, state: str, location: str):
+    filtered_address = [x for x in [location, state, country] if x is not None]
     address = ", ".join(filtered_address)
 
     url = os.getenv("GEOCODING_API_URL")
@@ -49,7 +51,6 @@ def get_lat_long(country: str, area: str, location: str):
     body = response.json()
     coords = body["results"][0]["geometry"]["location"]
     return {"latitude": coords["lat"], "longitude": coords["lng"]}
-
 
 def get_timezone(latitude: float, longitude: float, timestamp: int) -> str:
     url = os.getenv("TIMEZONE_API_URL")
@@ -69,7 +70,6 @@ def get_timezone(latitude: float, longitude: float, timestamp: int) -> str:
 
     body: dict = response.json()
     return body.get("timeZoneId", "UTC")
-
 
 def get_hourly_weather(date: datetime, latitude: float, longitude: float):
     time.sleep(1.6)  # sleep to avoid rate limiting
@@ -105,98 +105,76 @@ def get_hourly_weather(date: datetime, latitude: float, longitude: float):
         )
     ]
 
+def process_data(case: tuple[str, str, str, str, str, str]):
+    case_number = str(uuid.uuid4())
+    print("Processing case:", case_number)
 
-def sanitize_data(case: tuple[str, str, str, str, str]):
-    case_number, country, area, location, time_str = (
-        case[0],
-        case[1],
-        case[2],
-        case[3],
-        case[4],
-    )
-
-    if not case_number or not country or not time_str or not location:
-        print("Case number %s is missing important data." % case_number)
+    date_str, time_str, country, state, location, species = case
+    if not date_str or not time_str or not country or not location:
+        print("Missing important data, not proceeding with case %s." % case_number)
         return
 
-    date_result = re.search(date_regex, str(case_number))
-    time_result = re.search(time_regex, str(time_str))
-    if not date_result or not time_result:
-        print("Case number %s is missing time data." % case_number)
-        return
-
-    naive_date = None
     try:
-        naive_date = datetime.strptime(
-            f"{date_result[0]} {time_result[0]}", "%Y.%m.%d %Hh%M"
-        )
-    except ValueError as e:
-        print("parse error:", e)
-        print("Case number %s has invalid time data." % case_number)
+        date = date_parser.parse(date_str)
+        hours, minutes = time_str.split(":")
+        local_datetime = date.replace(hour=int(hours), minute=int(minutes))
+    except:
+        print("Date could not be parsed, not proceeding with case %s." % case_number)
         return
 
-    if naive_date < date_threshold:
-        print("Case number %s is too old for OpenMeteo." % case_number)
+    if local_datetime < date_threshold:
+        print("Case is older than epoch, not proceeding with case %s." % case_number)
         return
 
-    print("Fetching coordinates for case number %s." % case_number)
-    coordinates = get_lat_long(country, area, location)
+    print("Fetching coordinates for case %s ..." % case_number)
+    coordinates = get_lat_long(country, state, location)
     print(
         "Got coordinates for case number %s. Lat: %f, Long: %f"
         % (case_number, coordinates["latitude"], coordinates["longitude"])
     )
 
+    print("Fetching timezone for case %s..." % case_number)
     timezone = get_timezone(
-        coordinates["latitude"], coordinates["longitude"], int(naive_date.timestamp())
+        coordinates["latitude"], coordinates["longitude"], int(local_datetime.timestamp())
     )
     print("Got timezone for case number %s. Timezone: %s" % (case_number, timezone))
 
-    return {
-        "case_number": case_number,
-        "country": country,
-        "area": area,
-        "location": location,
-        "date": naive_date.strftime("%Y-%m-%d %H:%M:%S"),
-        "latitude": coordinates["latitude"],
-        "longitude": coordinates["longitude"],
-        "timezone": timezone,
-    }
-
-
-def process_data(data: dict[str, any]) -> dict:
-    coordinates = {"latitude": data["latitude"], "longitude": data["longitude"]}
-    naive_date = datetime.strptime(data["date"], "%Y-%m-%d %H:%M:%S")
-    case_number = data["case_number"]
-
     # Get the timezone for the incident location
-    local_timezone = pytz.timezone(data["timezone"])
+    local_timezone = pytz.timezone(timezone)
 
     # Localize the naive datetime to the incident location's timezone
-    local_date = local_timezone.localize(naive_date)
+    local_datetime = local_timezone.localize(local_datetime)
 
     # Convert to UTC for weather API request
-    utc_date = local_date.astimezone(pytz.UTC)
+    utc_datetime = local_datetime.astimezone(pytz.UTC)
 
     print("Fetching weather data for case number %s." % case_number)
     weather = get_hourly_weather(
-        utc_date, coordinates["latitude"], coordinates["longitude"]
+        utc_datetime, coordinates["latitude"], coordinates["longitude"]
     )
 
     if weather is None:
         print("Could not get weather data for case number %s." % case_number)
-    else:
-        print("Got weather data for case number %s." % case_number)
+        return
 
-        # Get weather near the incident time
-        weather = get_weather_near_time(weather, utc_date)
+    print("Got weather data for case number %s." % case_number)
+
+    # Get weather near the incident time
+    weather = get_weather_near_time(weather, utc_datetime)
 
     return {
         "case_number": case_number,
-        "local_datetime": local_date.isoformat(),
-        "utc_datetime": utc_date.isoformat(),
+        "country": country,
+        "state": state,
+        "location": location,
+        "local_datetime": local_datetime.isoformat(),
+        "utc_datetime": utc_datetime.isoformat(),
+        "latitude": coordinates["latitude"],
+        "longitude": coordinates["longitude"],
+        "timezone": timezone,
+        "shark_species": species,
         "weather": weather,
     }
-
 
 def get_weather_near_time(weather_data: list[dict], incident_time: datetime) -> dict:
     return min(
@@ -204,34 +182,67 @@ def get_weather_near_time(weather_data: list[dict], incident_time: datetime) -> 
         key=lambda x: abs(datetime.fromisoformat(x["time"]) - incident_time),
     )
 
+def download_incident_log():
+    print("Downloading incident log...")
+    response = requests.get(gsaf_incident_log_url)
+
+    if not response.ok:
+        print("Failed to download incident log.")
+        return pd.DataFrame()
+
+    # Save incident log to file
+    with open(incident_log_path, "wb") as f:
+        f.write(response.content)
+        print("Download complete.")
+
+def get_incident_log():
+    # Check if incident log file exists
+    if not os.path.exists(incident_log_path):
+        download_incident_log()
+
+    # Read incident log file
+    df = pd.read_excel(incident_log_path).replace({np.nan: None})
+    return df
 
 def main():
     start_time = time.time()
-    df = pd.read_csv(data_path).replace({np.nan: None})
+    df = get_incident_log()
+
+    df.columns = [column.strip() for column in df.columns]
+    df = df[df["Type"] == "Unprovoked"]
+    df = df[df["Time"].notnull()]
+    df = df[df["Time"].apply(lambda t: bool(re.search(time_regex, str(t))))]
+
+    def normalize_time(t):
+        match = re.search(time_regex, str(t))
+        return f"{match.group(1)}:{match.group(2)}"
+
+    df["Time"] = df["Time"].map(normalize_time)
+    df["Date"] = df["Date"].map(lambda d: str(d).replace("Reported ", ""))
+    df = df[df["Location"].notnull()]
+    df = df[df["State"].notnull()]
+    df = df[df["Country"].notnull()]
+
     cases = zip(
-        df["Case Number"], df["Country"], df["Area"], df["Location"], df["Time"]
+        df["Date"], df["Time"], df["Country"], df["State"], df["Location"], df["Species"]
     )
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
-        sanitized_data = list(executor.map(sanitize_data, cases))
-        filtered_data = [data for data in sanitized_data if data is not None]
-        processed_data = list(executor.map(process_data, filtered_data))
-        final_data = list(
-            executor.map(lambda d: {**d[0], **d[1]}, zip(filtered_data, processed_data))
-        )
+        processed_data = list(executor.map(process_data, cases))
+        # Filter out invalid data
+        filtered_data = [d for d in processed_data if d is not None]
 
     print("%d total events" % len(df))
     print("%d valid events" % len(filtered_data))
-    print("%d invalid events" % (len(sanitized_data) - len(filtered_data)))
+    print("%d invalid events" % (len(processed_data) - len(filtered_data)))
 
     # Write the data to a Excel file
-    df = pd.DataFrame(final_data)
+    df = pd.DataFrame(filtered_data)
     df.to_excel("shark_incidents.xlsx", index=False)
 
-    json.dump(final_data, open("shark_incidents.json", "w"), indent=2)
+    json.dump(filtered_data, open("shark_incidents.json", "w"), indent=2)
     print("Done!")
     print("Duration: %is" % (time.time() - start_time))
-
 
 if __name__ == "__main__":
     load_dotenv(".env")
