@@ -11,3 +11,6 @@ __pycache__
 
 # environment variables
 .env
+
+# plots
+plots
